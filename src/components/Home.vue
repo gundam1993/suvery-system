@@ -38,7 +38,7 @@
         <td>
           {{ suvery.buildDate.getFullYear() + "-" + (suvery.buildDate.getMonth() + 1) + "-" + suvery.buildDate.getDate()}}
         </td>
-        <td>
+        <td :class="{suveryPublishing: stateCheck(suvery) == '发布中'}">
           {{ stateCheck(suvery) }}
         </td>
         <td>
@@ -320,5 +320,10 @@ input
 .button:hover
 {
   background-color: #0B346E;
+}
+
+.suveryPublishing 
+{
+  color: green;
 }
 </style>

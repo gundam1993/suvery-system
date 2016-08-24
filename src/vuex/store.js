@@ -28,6 +28,15 @@ const mutations = {
     state.suverys.push(newSuvery);
     state.activeSuvery = newSuvery;
   },
+  EDIT_SUVERY(state) {
+    // 修改原始数据
+    for (var i = 0; i < state.suverys.length; i++) {
+       if (state.suverys[i].id === state.activeSuvery.id) {
+        state.suverys[i] = state.activeSuvery;
+        break;
+       }
+     }
+   },
   DELETE_SUVERY(state) {
     state.suverys.$remove(state.activeSuvery);
     state.activeSuvery = state.suverys[0] || {};

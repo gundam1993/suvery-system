@@ -38,7 +38,7 @@
       <label>问卷截止日期:
         <input type="text" class="suvery-date" value="">
       </label>
-      <div class="button color-change" @click="">保存问卷</div>
+      <div class="button color-change" @click="saveEdit()">保存问卷</div>
       <div class="button color-change">发布问卷</div>
     </div>
   </div>
@@ -46,13 +46,17 @@
 
 <script>
   import Radio from './Radio.vue';
-  import { getSuverys, getActiveSuvery } from '../vuex/getters'
+  import { getSuverys, getActiveSuvery } from '../vuex/getters';
+  import { editSuvery } from '../vuex/actions';
 
   export default {
     vuex: {
       getters: {
         getSuverys,
         suvery:getActiveSuvery,
+      },
+      actions: {
+        editSuvery,
       }
     },
     data() {
@@ -66,7 +70,11 @@
     methods: {
       toggleSelector() {
         this.showSelector = !this.showSelector;
-      }
+      },
+      saveEdit() {
+        this.editSuvery();
+        this.$route.router.go('/Home');
+      },
     }
   };
 

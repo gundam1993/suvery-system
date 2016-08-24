@@ -18,7 +18,11 @@ const initSuvery = {
   buildDate: new Date(),
   endDate: '',
   state: 'unpublish',
-  content: [],
+  questions: [{
+    title:"单选题",
+    type:"radio",
+    options: ["选项1","选项2"],
+  }],
 };
 
 const initData = {

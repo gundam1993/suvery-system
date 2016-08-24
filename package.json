@@ -25,6 +25,7 @@
     "connect-history-api-fallback": "^1.1.0",
     "css-loader": "^0.23.0",
     "node-sass": "^3.8.0",
+    "sass-loader": "^4.0.0",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^1.0.1",

@@ -9,6 +9,31 @@
       :value="suvery.title">
     <hr>
     <div id="questions">
+      <div class="suvery-questions"
+           v-for="question in suvery.questions">
+          <div class="suvery-questions-title">
+            {{ "Q" +  (suvery.questions.indexOf(question) + 1)}}
+            <input type="text" class="user-input" :value="question.title">
+          </div>
+          <div class="suvery-questions-options"
+               v-if="question.type == 'radio'">
+              <div class="option-radio"
+                   v-for="option in question.options">
+                <i class="iconfont icon-radiobuttonunchecked"></i>
+                <input type="text" class="user-input" :value="option">
+                <i class="iconfont icon-clear"></i>
+              </div>
+          </div>
+          <div class="add-option">
+            <i class="iconfont icon-jia"></i>
+          </div>
+          <div class="question-control">
+            <span>上移</span>
+            <span>下移</span>
+            <span>复用</span>
+            <span>删除</span>
+          </div>
+      </div>
     </div>
     <div id="add-question">
       <div 
@@ -80,7 +105,7 @@
 
 </script>
 
-<style>
+<style lang="scss" scoped>
   .user-input
   {
     border: none;
@@ -163,10 +188,74 @@
     height: 0;
     opacity: 0;
   }
-  #questions
-  {
+  #questions {
     width: 95%;
-    margin: 0 auto;
+    margin: 1.2em auto;
+    font-size: 20px;
+
+    .suvery-questions {
+      width: 100%;
+      padding: 1em 1.5em; 
+      box-sizing: border-box;
+
+      &:hover {
+        background-color: #c0e3ea;
+        .suvery-questions-title {
+          font-weight: bold;
+          input[type="text"] {
+            font-weight: bold;
+          }
+        }
+        .question-control {
+          color: #000;
+        }
+      } 
+
+      .suvery-questions-options {
+        margin-left: 2em;
+
+        .option-radio {
+          input {
+            
+          }
+        }
+      }
+
+      input[type="text"] {
+        display: inline-block;
+        height: 1.5em;
+        width: 96%;
+        line-height: 1.5em;
+        font-size: 1em;
+        background-color: transparent;
+      }
+
+      .add-option {
+        width: 100%;
+        height: 1.5em;
+        font-size: .8em;
+        line-height: 1.2em;
+        box-sizing: border-box;
+        color: transparent;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+          color: #000;
+          border: 1px dashed #000;
+        }
+      }
+      .question-control {
+        text-align: right;
+        color: #FFF;
+        span {
+          display: inline-block;
+          margin: 0.2em 0.5em;
+          cursor: pointer;
+        }
+      }
+    }
   }
+  
 </style>
 

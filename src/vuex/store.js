@@ -23,7 +23,7 @@ const mutations = {
       buildDate: new Date(),
       endDate: '',
       state: 'unpublish',
-      content: [],
+      questions: [],
     };
     state.suverys.push(newSuvery);
     state.activeSuvery = newSuvery;

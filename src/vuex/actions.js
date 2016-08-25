@@ -22,6 +22,14 @@ const initSuvery = {
     title:"单选题",
     type:"radio",
     options: ["选项1","选项2"],
+  },{
+    title:"多选题",
+    type:"checkbox",
+    options: ["选项1","选项2","选项3","选项4"],
+  },{
+    title:"文本题",
+    type:"textarea",
+    mandatory: false,
   }],
 };
 

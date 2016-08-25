@@ -30,7 +30,7 @@
       </tr>
       <tr v-for="suvery in getSuverys">
         <td>
-          <input type="checkbox" name="survey-choose">
+          <input class="homepage-checkbox" type="checkbox" name="survey-choose">
         </td>
         <td>
           {{ suvery.title }}
@@ -61,7 +61,7 @@
     <tfoot>
       <tr>
         <td colspan="5">
-          <label><input type="checkbox" name="survey-choose">&nbsp;全选</label>
+          <label><input class="homepage-checkbox" type="checkbox" name="survey-choose">&nbsp;全选</label>
           <div id="delete-Survey" class="button color-change">删除</div>
         </td>
       </tr>
@@ -262,7 +262,7 @@ tbody tr td:nth-child(5) div:hover
   margin: 20px auto;
 }
 
-input[type=checkbox] 
+.homepage-checkbox
 {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -279,13 +279,13 @@ input[type=checkbox]
   outline: none;
 }
 
-input[type=checkbox]:checked 
+.homepage-checkbox:checked 
 {
   background: #81C7D4;
   border: 1px solid transparent;
 }
 
-input[type=checkbox]:checked::after 
+.homepage-checkbox:checked::after 
 {
   content: '';
   display: block;

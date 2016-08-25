@@ -6,7 +6,6 @@ Vue.use(Vuex);
 const state = {
   suverys: [],
   activeSuvery: {},
-  editingSuvery: {},
   modalState: false,
 };
 

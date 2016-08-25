@@ -8,33 +8,7 @@
       autocomplete="off" 
       :value="suvery.title">
     <hr>
-    <div id="questions">
-      <div class="suvery-questions"
-           v-for="question in suvery.questions">
-          <div class="suvery-questions-title">
-            {{ "Q" +  (suvery.questions.indexOf(question) + 1)}}
-            <input type="text" class="user-input" :value="question.title">
-          </div>
-          <div class="suvery-questions-options"
-               v-if="question.type == 'radio'">
-              <div class="option-radio"
-                   v-for="option in question.options">
-                <i class="iconfont icon-radiobuttonunchecked"></i>
-                <input type="text" class="user-input" :value="option">
-                <i class="iconfont icon-clear"></i>
-              </div>
-          </div>
-          <div class="add-option">
-            <i class="iconfont icon-jia"></i>
-          </div>
-          <div class="question-control">
-            <span>上移</span>
-            <span>下移</span>
-            <span>复用</span>
-            <span>删除</span>
-          </div>
-      </div>
-    </div>
+    <question-builder :suverys="suvery"></question-builder>
     <div id="add-question">
       <div 
         id="question-type" 
@@ -70,7 +44,7 @@
 </template>
 
 <script>
-  import Radio from './Radio.vue';
+  import QuestionBuilder from './questionModule/QuestionBuilder';
   import { getSuverys, getActiveSuvery } from '../vuex/getters';
   import { editSuvery } from '../vuex/actions';
 
@@ -90,7 +64,7 @@
       }
     },
     components: {
-      Radio,
+      QuestionBuilder,
     },
     methods: {
       toggleSelector() {
@@ -120,16 +94,19 @@
     font-size: 30px;
     line-height: 40px;
     text-align: center;
+
+    &:hover {
+      background-color: #c0e3ea;
+    }
   }
 
-  #title:hover
-  {
-    background-color: #c0e3ea;
-  }
-  
   #suvery-control
   {
     padding: 40px 0;
+
+    input {
+      text-indent: 10px;
+    }
   }
 
   #suvery-control>.button
@@ -137,10 +114,7 @@
     float: right;
     margin: 0 5px;
   }
-  #suvery-control input
-  {
-    text-indent: 10px;
-  }
+ 
   #add-question
   {
     margin: 20px auto;
@@ -214,9 +188,16 @@
       .suvery-questions-options {
         margin-left: 2em;
 
-        .option-radio {
-          input {
-            
+        .option {
+          .icon-clear {
+            color: transparent;
+          }
+
+          &:hover {
+            .icon-clear {
+              color: #CB1B45;
+              cursor: pointer;
+            }
           }
         }
       }

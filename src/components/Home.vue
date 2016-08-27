@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="container">
   <table>
     <thead>
       <tr>
@@ -52,6 +52,7 @@
                >删除</div>
           <div class="button color-change"
                v-show="suvery.state !== 'unpublish' && suvery.endDate > new Date()"
+               @click="fill(suvery)"very.id"
                >填写问卷</div>
           <div class="button color-change"
                v-show="suvery.state !== 'unpublish'">查看数据</div>
@@ -92,7 +93,7 @@
     methods: {
       addNew() {
         this.newSuvery();
-        this.$route.router.go('/SuvreyBuilder');
+        this.$route.router.go('/Edit');
       },
       deleteSelected(suvery) {
         this.setActiveSuvery(suvery);
@@ -100,7 +101,11 @@
       },
       edit(suvery) {
         this.setActiveSuvery(suvery);
-        this.$route.router.go('/SuvreyBuilder');
+        this.$route.router.go('/Edit/'+ suvery.id);
+      },
+      fill(suvery) {
+        this.setActiveSuvery(suvery);
+        this.$route.router.go('/Fill/'+ suvery.id);
       },
       stateCheck(suvery) {
         if (suvery.state === 'unpublish') {
@@ -325,5 +330,10 @@ input
 .suveryPublishing 
 {
   color: green;
+}
+
+label
+{
+  cursor: pointer;
 }
 </style>

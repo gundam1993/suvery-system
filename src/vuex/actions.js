@@ -16,8 +16,8 @@ const initSuvery = {
   id: +new Date(),
   title: 'First Suvery',
   buildDate: new Date(),
-  endDate: '',
-  state: 'unpublish',
+  endDate: '99999999999999999999',
+  state: 'publish',
   questions: [{
     title:"单选题",
     type:"radio",

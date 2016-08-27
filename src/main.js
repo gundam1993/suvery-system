@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import App from './App';
 import Home from './components/Home.vue';
-import SuvreyBuilder from './components/SuvreyBuilder.vue';
+import SuvreyBuild from './components/SuvreyBuild.vue';
+import SuvreyDisplay from './components/SuvreyDisplay.vue';
 
 import VueRouter from 'vue-router';
 
@@ -13,9 +14,15 @@ router.map({
   '/Home': {
     component: Home,
   },
-  '/SuvreyBuilder': {
-    component: SuvreyBuilder,
+  '/Edit/:suveryId': {
+    component: SuvreyBuild,
   },
+  '/Edit': {
+    component: SuvreyBuild,
+  },
+  '/Fill/:suveryId': {
+    component: SuvreyDisplay,
+  }
 });
 
 router.redirect({

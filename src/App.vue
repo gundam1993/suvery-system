@@ -1,11 +1,10 @@
 <template>
 <div>
     <toolbar></toolbar>
-    <div class="container">
-      <div>
-        <router-view></router-view>
-      </div>
-    </div>
+
+        <router-view transition="page-change"
+                     transition-mode="out-in"></router-view>
+
 </div>
 </template>
 
@@ -33,21 +32,24 @@
 <style lang="scss" scoped>
   .container { 
     width: 80%;
-    margin: auto;
-    margin-top: 120px;
-    padding: 0 30px;
+    margin: 120px auto 40px auto;
+    padding: 10px 30px;
     background-color: #FFF;
     box-sizing: border-box;
     border-radius: 5px;
     box-shadow: 2px 2px 5px #888;
-
-    div {
-      padding-top: 10px;
-    }
   }
 
-  label {
-    cursor: pointer;
+  .page-change-transition {
+    transition: all .5s ease-in-out;
   }
-
+  
+  .page-change-enter {
+    transform: translate(0,100%);
+    opacity: 0;
+  }
+  .page-change-leave {
+    transform: translate(-100%,0);
+    opacity: 0;
+  } 
 </style>

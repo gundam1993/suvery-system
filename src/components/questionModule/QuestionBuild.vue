@@ -1,12 +1,12 @@
 <template>
-  <div id="question-builder">
-      <div class="suvery-questions"
+  <div id="question-build">
+      <div class="suvery-questions-build"
            v-for="question in suverys.questions">
-          <div class="suvery-questions-title">
+          <div class="suvery-questions-title-build">
             {{ "Q" +  (suverys.questions.indexOf(question) + 1)}}
             <input type="text" class="user-input" :value="question.title">
           </div>
-          <div class="suvery-questions-options"
+          <div class="suvery-questions-options-build"
                v-if="question.type !== 'textarea'">
               <div class="option"
                    v-for="option in question.options">
@@ -18,7 +18,7 @@
                 <i class="iconfont icon-clear"></i>
               </div>
           </div>
-          <div class="suvery-questions-textarea"
+          <div class="suvery-questions-textarea-build"
                v-if="question.type === 'textarea'">
             <textarea></textarea>
             <label>
@@ -32,7 +32,7 @@
                v-if="question.type !== 'textarea'">
             <i class="iconfont icon-jia"></i>
           </div>
-          <div class="question-control">
+          <div class="question-control-build">
             <span v-if="suverys.questions.indexOf(question) > 0">上移</span>
             <span v-if="suverys.questions.length > 1 && suverys.questions.indexOf(question) < (suverys.questions.length - 1)">下移</span>
             <span>复用</span>
@@ -49,30 +49,30 @@
 </script>
 
 <style lang="scss" scoped>
-  #question-builder {
+  #question-build {
     width: 95%;
     margin: 1.2em auto;
     font-size: 20px;
 
-    .suvery-questions {
+    .suvery-questions-build {
       width: 100%;
       padding: 1em 1.5em; 
       box-sizing: border-box;
 
       &:hover {
         background-color: #c0e3ea;
-        .suvery-questions-title {
+        .suvery-questions-title-build {
           font-weight: bold;
           input[type="text"] {
             font-weight: bold;
           }
         }
-        .question-control {
+        .question-control-build {
           color: #000;
         }
       } 
 
-      .suvery-questions-options {
+      .suvery-questions-options-build {
         margin-left: 2em;
 
         .option {
@@ -114,7 +114,7 @@
         }
       }
       
-      .suvery-questions-textarea {
+      .suvery-questions-textarea-build {
         textarea {
           width: 100%;
           height: 10em;
@@ -125,7 +125,7 @@
         }
       }
 
-      .question-control {
+      .question-control-build {
         text-align: right;
         color: #FFF;
         span {

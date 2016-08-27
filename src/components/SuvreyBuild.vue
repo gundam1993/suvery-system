@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <input 
       type="text" 
       id="title" 
@@ -8,12 +8,12 @@
       autocomplete="off" 
       :value="suvery.title">
     <hr>
-    <question-builder :suverys="suvery"></question-builder>
+    <question-build :suverys="suvery"></question-build>
     <div id="add-question">
       <div 
         id="question-type" 
         v-if="showSelector"
-        transition="bounce"
+        transition="question-type-bounce"
       >
         <div class="button color-change">
           <i class="iconfont icon-danxuan"></i>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-  import QuestionBuilder from './questionModule/QuestionBuilder';
+  import QuestionBuild from './questionModule/QuestionBuild';
   import { getSuverys, getActiveSuvery } from '../vuex/getters';
   import { editSuvery } from '../vuex/actions';
 
@@ -64,7 +64,7 @@
       }
     },
     components: {
-      QuestionBuilder,
+      QuestionBuild,
     },
     methods: {
       toggleSelector() {
@@ -89,10 +89,10 @@
   #title
   {
     width: 100%;
-    height: 40px;
-    margin: 30px auto;
+    height: 1.4em;
+    margin: 1em auto;
     font-size: 30px;
-    line-height: 40px;
+    line-height: 1.4em;
     text-align: center;
 
     &:hover {
@@ -102,10 +102,10 @@
 
   #suvery-control
   {
-    padding: 40px 0;
+    padding: 2.5em 0;
 
     input {
-      text-indent: 10px;
+      text-indent: 0.75em;
     }
   }
 
@@ -126,19 +126,19 @@
   
   #question-type div
   {
-    margin: 0 20px;
-    height: 40px;
-    width: 120px;
-    line-height: 40px;
+    margin: 0 1em;
+    height: 2em;
+    width: 6em;
+    line-height: 2em;
     font-size: 20px;
   }
 
   #add-button
   {
-    height: 70px;
+    height: 3.5em;
     text-align: center;
     font-size: 20px;
-    line-height: 70px;
+    line-height: 3.5em;
     background-color: #ddd;
   }
   #add-button span
@@ -147,7 +147,7 @@
     user-select: none;
   }
 
-  .bounce-transition 
+  .question-type-bounce-transition 
   {
     transition: all .3s ease;
     display: flex;
@@ -157,7 +157,7 @@
     overflow: hidden;
   }
   
-  .bounce-enter,.bounce-leave 
+  .question-type-bounce-enter,.question-type-bounce-leave 
   {
     height: 0;
     opacity: 0;
@@ -237,6 +237,7 @@
       }
     }
   }
+
   
 </style>
 

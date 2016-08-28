@@ -17,7 +17,7 @@ const initSuvery = {
   title: 'First Suvery',
   buildDate: new Date(),
   endDate: '99999999999999999999',
-  state: 'publish',
+  state: 'unpublish',
   questions: [{
     title:"单选题",
     type:"radio",
@@ -43,3 +43,7 @@ const initData = {
 export const initStore = ({ dispatch }) => {
   dispatch('INIT_STORE', initData);
 };
+
+export const updateTitle = makeAction('UPDATE_TITLE');
+
+export const addQuestion = makeAction('ADD_QUESTION');

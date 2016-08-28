@@ -6,16 +6,18 @@
       class="user-input" 
       placeholder="这里是标题" 
       autocomplete="off" 
-      :value="suvery.title">
+      :value="title"
+      @input="updateSuveryTitle">
     <hr>
-    <question-build :suverys="suvery"></question-build>
+    <question-build :questions="question"></question-build>
     <div id="add-question">
       <div 
         id="question-type" 
         v-if="showSelector"
         transition="question-type-bounce"
       >
-        <div class="button color-change">
+        <div class="button color-change"
+             @click="this.addQuestion('radio')">
           <i class="iconfont icon-danxuan"></i>
         单选</div>
         <div class="button color-change">
@@ -45,17 +47,19 @@
 
 <script>
   import QuestionBuild from './questionModule/QuestionBuild';
-  import { getSuverys, getActiveSuvery } from '../vuex/getters';
-  import { editSuvery } from '../vuex/actions';
+  import { getActiveSuveryTitle, getActiveSuveryQuestions } from '../vuex/getters';
+  import { editSuvery, addQuestion, updateTitle } from '../vuex/actions';
 
   export default {
     vuex: {
       getters: {
-        getSuverys,
-        suvery:getActiveSuvery,
+        title:getActiveSuveryTitle,
+        question:getActiveSuveryQuestions
       },
       actions: {
         editSuvery,
+        addQuestion,
+        updateTitle,
       }
     },
     data() {
@@ -74,6 +78,9 @@
         this.editSuvery();
         this.$route.router.go('/Home');
       },
+      updateSuveryTitle(e) {
+        this.updateTitle(e.target.value);
+      }
     }
   };
 
@@ -162,82 +169,6 @@
     height: 0;
     opacity: 0;
   }
-  #questions {
-    width: 95%;
-    margin: 1.2em auto;
-    font-size: 20px;
-
-    .suvery-questions {
-      width: 100%;
-      padding: 1em 1.5em; 
-      box-sizing: border-box;
-
-      &:hover {
-        background-color: #c0e3ea;
-        .suvery-questions-title {
-          font-weight: bold;
-          input[type="text"] {
-            font-weight: bold;
-          }
-        }
-        .question-control {
-          color: #000;
-        }
-      } 
-
-      .suvery-questions-options {
-        margin-left: 2em;
-
-        .option {
-          .icon-clear {
-            color: transparent;
-          }
-
-          &:hover {
-            .icon-clear {
-              color: #CB1B45;
-              cursor: pointer;
-            }
-          }
-        }
-      }
-
-      input[type="text"] {
-        display: inline-block;
-        height: 1.5em;
-        width: 96%;
-        line-height: 1.5em;
-        font-size: 1em;
-        background-color: transparent;
-      }
-
-      .add-option {
-        width: 100%;
-        height: 1.5em;
-        font-size: .8em;
-        line-height: 1.2em;
-        box-sizing: border-box;
-        color: transparent;
-        text-align: center;
-        cursor: pointer;
-
-        &:hover {
-          color: #000;
-          border: 1px dashed #000;
-        }
-      }
-      .question-control {
-        text-align: right;
-        color: #FFF;
-        span {
-          display: inline-block;
-          margin: 0.2em 0.5em;
-          cursor: pointer;
-        }
-      }
-    }
-  }
-
   
 </style>
 

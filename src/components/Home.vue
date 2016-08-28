@@ -52,7 +52,7 @@
                >删除</div>
           <div class="button color-change"
                v-show="suvery.state !== 'unpublish' && suvery.endDate > new Date()"
-               @click="fill(suvery)"very.id"
+               @click="fill(suvery)"
                >填写问卷</div>
           <div class="button color-change"
                v-show="suvery.state !== 'unpublish'">查看数据</div>
@@ -75,14 +75,13 @@
 </template>
 
 <script>
-  import { getSuverys,getActiveSuvery } from '../vuex/getters';
+  import { getSuverys } from '../vuex/getters';
   import { newSuvery, deleteSuvery, setActiveSuvery } from '../vuex/actions';
 
   export default {
     vuex: {
       getters: {
         getSuverys,
-        getActiveSuvery,
       },
       actions: {
         newSuvery,

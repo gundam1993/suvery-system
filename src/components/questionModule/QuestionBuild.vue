@@ -1,10 +1,10 @@
 <template>
   <div id="question-build">
       <div class="suvery-questions-build"
-           v-for="question in suverys.questions">
+           v-for="question in questions">
           <div class="suvery-questions-title-build">
-            {{ "Q" +  (suverys.questions.indexOf(question) + 1)}}
-            <input type="text" class="user-input" :value="question.title">
+            {{ "Q" +  (questions.indexOf(question) + 1)}}
+            <input type="text" class="user-input" v-model="question.title">
           </div>
           <div class="suvery-questions-options-build"
                v-if="question.type !== 'textarea'">
@@ -33,8 +33,8 @@
             <i class="iconfont icon-jia"></i>
           </div>
           <div class="question-control-build">
-            <span v-if="suverys.questions.indexOf(question) > 0">上移</span>
-            <span v-if="suverys.questions.length > 1 && suverys.questions.indexOf(question) < (suverys.questions.length - 1)">下移</span>
+            <span v-if="questions.indexOf(question) > 0">上移</span>
+            <span v-if="questions.length > 1 && questions.indexOf(question) < (questions.length - 1)">下移</span>
             <span>复用</span>
             <span>删除</span>
           </div>
@@ -44,7 +44,7 @@
 
 <script>
   export default {
-    props: ["suverys"],
+    props: ["questions"],
   }
 </script>
 

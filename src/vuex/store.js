@@ -6,8 +6,6 @@ Vue.use(Vuex);
 const state = {
   suverys: [],
   activeSuvery: {},
-  activeSuveryTitle: '',
-  activeSuveryQuestions: [],
   modalState: false,
 };
 
@@ -29,32 +27,34 @@ const mutations = {
     state.suverys.push(newSuvery);
     state.activeSuvery = newSuvery;
   },
-  EDIT_SUVERY(state) {
-    // 修改原始数据
-    state.activeSuvery.title = state.activeSuveryTitle;
-    state.activeSuvery.questions = state.activeSuveryQuestions;
-  },
-  UPDATE_TITLE(state, title) {
-    state.activeSuveryTitle = title;
+  EDIT_SUVERY(state, suvery) {
+    // 修改原始数据 
+    state.activeSuvery = suvery;
+    for (var i = 0; i < state.suverys.length; i++) {
+      if(state.suverys[i].id === suvery.id){
+        state.suverys[i] = suvery;
+        break;
+      }
+    };
   },
   ADD_QUESTION(state, type) {
     switch (type) {
       case "radio" :
-        state.activeSuveryQuestions.push({
+        state.activeSuvery.questions.push({
           title:"单选题",
           type:"radio",
           options: ["选项1","选项2"],
         });
         break;
       case "checkbox" :
-        state.activeSuveryQuestions.push({
+        state.activeSuvery.questions.push({
           title:"多选题",
           type:"checkbox",
           options: ["选项1","选项2","选项3","选项4"],
         });
         break;
       case "textarea" :
-        state.activeSuveryQuestions.push({
+        state.activeSuvery.questions.push({
           title:"文本题",
           type:"textarea",
           mandatory: false,
@@ -67,9 +67,7 @@ const mutations = {
     state.activeSuvery = state.suverys[0] || {};
   },
   SET_ACTIVE_SUVERY(state, suverys) {
-    state.activeSuvery = suverys;
-    state.activeSuveryTitle = suverys.title;
-    state.activeSuveryQuestions = suverys.questions.slice(0);
+    state.activeSuvery = JSON.parse(JSON.stringify(suverys));
   },
   TOGGLE_MODAL(state) {
     state.modalState = !state.modalState;

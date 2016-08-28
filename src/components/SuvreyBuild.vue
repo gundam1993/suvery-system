@@ -6,10 +6,10 @@
       class="user-input" 
       placeholder="这里是标题" 
       autocomplete="off" 
-      :value="title"
-      @input="updateSuveryTitle">
+      v-model="activeSuvery.title"
+      >
     <hr>
-    <question-build :questions="question"></question-build>
+    <question-build :questions="activeSuvery.questions"></question-build>
     <div id="add-question">
       <div 
         id="question-type" 
@@ -20,11 +20,13 @@
              @click="this.addQuestion('radio')">
           <i class="iconfont icon-danxuan"></i>
         单选</div>
-        <div class="button color-change">
+        <div class="button color-change"
+             @click="this.addQuestion('checkbox')">
           <i class="iconfont icon-duoxuan"></i>
         多选</div>
-        <div class="button color-change">
-          <i class="iconfont icon-wenbenkuang"></i>s
+        <div class="button color-change"
+             @click="this.addQuestion('textarea')">
+          <i class="iconfont icon-wenbenkuang"></i>
         文本框</div>
       </div>
       <div id="add-button">
@@ -47,24 +49,34 @@
 
 <script>
   import QuestionBuild from './questionModule/QuestionBuild';
-  import { getActiveSuveryTitle, getActiveSuveryQuestions } from '../vuex/getters';
-  import { editSuvery, addQuestion, updateTitle } from '../vuex/actions';
+  import { getActiveSuvery } from '../vuex/getters';
+  import { editSuvery, addQuestion } from '../vuex/actions';
 
   export default {
     vuex: {
       getters: {
-        title:getActiveSuveryTitle,
-        question:getActiveSuveryQuestions
+        activeSuvery: getActiveSuvery,
       },
       actions: {
         editSuvery,
         addQuestion,
-        updateTitle,
       }
     },
     data() {
       return {
         showSelector: false,
+      }
+    },
+    computed: {
+      suvery: {
+        get() {
+          return this.activeSuvery;
+        },
+      },
+      abc: {
+        get() {
+          return this.activeSuvery.questions.slice();
+        },
       }
     },
     components: {
@@ -75,13 +87,10 @@
         this.showSelector = !this.showSelector;
       },
       saveEdit() {
-        this.editSuvery();
+        this.editSuvery(this.suvery);
         this.$route.router.go('/Home');
       },
-      updateSuveryTitle(e) {
-        this.updateTitle(e.target.value);
-      }
-    }
+    },
   };
 
 </script>

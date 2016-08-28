@@ -9,13 +9,15 @@
           <div class="suvery-questions-options-build"
                v-if="question.type !== 'textarea'">
               <div class="option"
-                   v-for="option in question.options">
+                   v-for="option in question.options"
+                   track-by="$index">
                 <i class="iconfont icon-checkboxoutlineblank"
                    v-if="question.type === 'checkbox'"></i>
                 <i class="iconfont icon-radiobuttonunchecked"
                    v-if="question.type === 'radio'"></i>
                 <input type="text" class="user-input" :value="option">
-                <i class="iconfont icon-clear"></i>
+                <i class="iconfont icon-clear"
+                   @click="this.deleteOption(question, option)"></i>
               </div>
           </div>
           <div class="suvery-questions-textarea-build"
@@ -24,26 +26,43 @@
             <label>
               <input type="checkbox" 
                      name="survey-choose"
-                     checked="{{question.mandatory}}">
+                     checked="{{question.mandatory}}"
+                     @click="this.toggleMandatory(question)">
               &nbsp;此题是否必填
             </label>
           </div>
           <div class="add-option"
-               v-if="question.type !== 'textarea'">
+               v-if="question.type !== 'textarea'"
+               @click="this.addOption(question)">
             <i class="iconfont icon-jia"></i>
           </div>
           <div class="question-control-build">
-            <span v-if="questions.indexOf(question) > 0">上移</span>
-            <span v-if="questions.length > 1 && questions.indexOf(question) < (questions.length - 1)">下移</span>
-            <span>复用</span>
-            <span>删除</span>
+            <span v-if="questions.indexOf(question) > 0"
+                  @click="this.questionUp(question)">上移</span>
+            <span v-if="questions.length > 1 && questions.indexOf(question) < (questions.length - 1)"
+                  @click="this.questionDown(question)">下移</span>
+            <span @click="this.copyQuestion(question)">复用</span>
+            <span @click="this.deleteQuestion(question)">删除</span>
           </div>
       </div>
     </div>
 </template>
 
 <script>
+  import { deleteQuestion, copyQuestion, questionUp, questionDown, deleteOption, addOption, toggleMandatory } from "../vuex/actions"
+
   export default {
+    vuex: {
+      actions: {
+        deleteQuestion,
+        copyQuestion,
+        questionUp,
+        questionDown,
+        deleteOption,
+        addOption,
+        toggleMandatory,
+      }
+    },
     props: ["questions"],
   }
 </script>

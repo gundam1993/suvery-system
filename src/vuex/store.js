@@ -62,6 +62,39 @@ const mutations = {
         break;
     }
   },
+  DELETE_QUESTION(state, question) {
+    state.activeSuvery.questions.$remove(question);
+  },
+  COPY_QUESTION(state, question) {
+    const newQustion = JSON.parse(JSON.stringify(question));
+    const idx = state.activeSuvery.questions.indexOf(question);
+    state.activeSuvery.questions.splice(idx, 0, newQustion);
+  },
+  QUESTION_UP(state, question) {
+    const newQustion = JSON.parse(JSON.stringify(question));
+    const idx = state.activeSuvery.questions.indexOf(question);
+    state.activeSuvery.questions.splice(idx - 1, 0, newQustion);
+    state.activeSuvery.questions.$remove(question);
+  },
+  QUESTION_DOWN(state, question) {
+    const newQustion = JSON.parse(JSON.stringify(question));
+    const idx = state.activeSuvery.questions.indexOf(question);
+    state.activeSuvery.questions.$remove(question);
+    state.activeSuvery.questions.splice(idx + 1, 0, newQustion);
+  },
+  DELETE_OPTION(state, question, option) {
+    const idx = state.activeSuvery.questions.indexOf(question);
+    state.activeSuvery.questions[idx].options.$remove(option);
+  },
+  ADD_OPTION(state, question) {
+    const idx = state.activeSuvery.questions.indexOf(question);
+    state.activeSuvery.questions[idx].options.push("选项" + (state.activeSuvery.questions[idx].options.length + 1));
+  },
+  TOGGLE_MANDATORY(state, question) {
+    const idx = state.activeSuvery.questions.indexOf(question);
+    console.log(state.activeSuvery.questions[idx].mandatory);
+    state.activeSuvery.questions[idx].mandatory = !state.activeSuvery.questions[idx].mandatory;
+  },
   DELETE_SUVERY(state) {
     state.suverys.$remove(state.activeSuvery);
     state.activeSuvery = state.suverys[0] || {};

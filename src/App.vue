@@ -41,7 +41,7 @@
   }
 
   .page-change-transition {
-    transition: all .5s ease-in-out;
+    transition: all .3s ease-in-out;
   }
   
   .page-change-enter {

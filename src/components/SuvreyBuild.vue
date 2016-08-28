@@ -48,7 +48,7 @@
 </template>
 
 <script>
-  import QuestionBuild from './questionModule/QuestionBuild';
+  import QuestionBuild from './QuestionBuild';
   import { getActiveSuvery } from '../vuex/getters';
   import { editSuvery, addQuestion } from '../vuex/actions';
 

@@ -47,3 +47,17 @@ export const initStore = ({ dispatch }) => {
 export const updateTitle = makeAction('UPDATE_TITLE');
 
 export const addQuestion = makeAction('ADD_QUESTION');
+
+export const deleteQuestion = makeAction('DELETE_QUESTION');
+
+export const copyQuestion = makeAction('COPY_QUESTION');
+
+export const questionUp = makeAction('QUESTION_UP');
+
+export const questionDown = makeAction('QUESTION_DOWN');
+
+export const deleteOption = makeAction('DELETE_OPTION');
+
+export const addOption = makeAction('ADD_OPTION');
+
+export const toggleMandatory = makeAction('TOGGLE_MANDATORY');

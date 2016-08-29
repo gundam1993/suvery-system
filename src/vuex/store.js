@@ -19,12 +19,12 @@ const mutations = {
     var newSuvery = {
       id: +new Date(),
       title: '',
-      buildDate: new Date(),
+      buildDate: (new Date()).getFullYear() + "-" + ((new Date()).getMonth() + 1) + "-" + (new Date()).getDate(),
       endDate: '',
       state: 'unpublish',
       questions: [],
     };
-    state.suverys.push(newSuvery);
+    //state.suverys.push(newSuvery);
     state.activeSuvery = newSuvery;
   },
   EDIT_SUVERY(state, suvery) {
@@ -33,9 +33,10 @@ const mutations = {
     for (var i = 0; i < state.suverys.length; i++) {
       if(state.suverys[i].id === suvery.id){
         state.suverys[i] = suvery;
-        break;
+        return;
       }
     };
+    state.suverys.push(state.activeSuvery);
   },
   ADD_QUESTION(state, type) {
     switch (type) {
@@ -96,8 +97,12 @@ const mutations = {
     state.activeSuvery.questions[idx].mandatory = !state.activeSuvery.questions[idx].mandatory;
   },
   DELETE_SUVERY(state) {
-    state.suverys.$remove(state.activeSuvery);
-    state.activeSuvery = state.suverys[0] || {};
+    for (var i = 0; i < state.suverys.length; i++) {
+      if(state.suverys[i].id === state.activeSuvery.id){
+        state.suverys.$remove(state.suverys[i]);
+        break;
+      }
+    };
   },
   SET_ACTIVE_SUVERY(state, suverys) {
     state.activeSuvery = JSON.parse(JSON.stringify(suverys));

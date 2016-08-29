@@ -36,7 +36,7 @@
           {{ suvery.title }}
         </td>
         <td>
-          {{ suvery.buildDate.getFullYear() + "-" + (suvery.buildDate.getMonth() + 1) + "-" + suvery.buildDate.getDate()}}
+          {{ suvery.buildDate}}
         </td>
         <td :class="{suveryPublishing: stateCheck(suvery) == '发布中'}">
           {{ stateCheck(suvery) }}

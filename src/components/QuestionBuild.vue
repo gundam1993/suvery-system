@@ -111,7 +111,7 @@
       input[type="text"] {
         display: inline-block;
         height: 1.5em;
-        width: 95%;
+        width: 94%;
         line-height: 1.5em;
         font-size: 1em;
         background-color: transparent;

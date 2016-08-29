@@ -37,10 +37,8 @@
       </div>
     </div>
     <hr>
+    <date-selector></date-selector>
     <div id="suvery-control">
-      <label>问卷截止日期:
-        <input type="text" class="suvery-date" value="">
-      </label>
       <div class="button color-change" @click="saveEdit()">保存问卷</div>
       <div class="button color-change">发布问卷</div>
     </div>
@@ -49,6 +47,7 @@
 
 <script>
   import QuestionBuild from './QuestionBuild';
+  import DateSelector from './DateSelector';
   import { getActiveSuvery } from '../vuex/getters';
   import { editSuvery, addQuestion } from '../vuex/actions';
 
@@ -81,6 +80,7 @@
     },
     components: {
       QuestionBuild,
+      DateSelector,
     },
     methods: {
       toggleSelector() {
@@ -119,10 +119,6 @@
   #suvery-control
   {
     padding: 2.5em 0;
-
-    input {
-      text-indent: 0.75em;
-    }
   }
 
   #suvery-control>.button

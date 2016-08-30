@@ -2,7 +2,8 @@
   <div id="date-selector">
     <label>问卷截止日期:
       <div class="calenderUnit-container">
-        <div class="calenderUnit">
+        <div class="calenderUnit"
+             v-show="selectorDisplay">
           <div class="calenderUnit-header">
             <div class="leftArrow arrow"></div>
             {{year + "年" + (month + 1) + "月"}}
@@ -20,12 +21,15 @@
           <div class="calenderUnit-body">
             <div class="calenderUnit-body-dayUnit"
                  v-for="day in daysArr"
-                 >
-                {{ day.date }}       
+                 :class="{thisMonth: day.getMonth() === this.month && day.getDate() >= this.today.getDate(),
+                          nxtMonth: day.getMonth() > this.month}">
+                  {{ day.getDate() }}   
             </div>
           </div>
         </div>
-        <input type="text" class="suvery-date" value="">
+        <input type="text" class="suvery-date" 
+               :value="chooseDate.getFullYear()+ '-' + (chooseDate.getMonth() + 1) + '-' + chooseDate.getDate()"
+               v-on:focus="toggleSelector()">
       </div>
     </label>
   </div>
@@ -35,56 +39,40 @@
   export default {
     data() {
       return {
-        today: "",
-        year: "",
-        month: "",
+        today: new Date(),
+        year: (new Date()).getFullYear(),
+        month: (new Date()).getMonth(),
         dayNum: "",
         daysArr: [],
-        chooseDate: "",
+        chooseDate: new Date(),
+        selectorDisplay: false,
       }
     },
     ready() {
-      this.today = new Date();
-      this.year = this.today.getFullYear();
-      this.month = this.today.getMonth();
       this.dayNum = new Date(this.year,this.month+1,0).getDate();
       this.buildDaysArr();
     },
     methods: {
       buildDaysArr() {
-        const firstday = new Date(this.year,this.month,1);
-        const day = firstday.getDay();
+        const day = new Date(this.year,this.month,1).getDay();
         var dayNumLast = new Date(this.year,this.month,0).getDate();
         var dayNextMo = 1;
         if (day > 0) {
           for (let i = 0; i < day; i++) {
-            this.daysArr.unshift({
-              date: dayNumLast,
-              day: new Date(this.year,this.month-1,dayNumLast).getDay(),
-              chooseable:false,
-              month: this.month-1,
-            });
+            this.daysArr.unshift(new Date(this.year,this.month-1,dayNumLast));
             dayNumLast--;
           }
-          console.log(this.daysArr);
         };
         for (let j = 0; j < this.dayNum; j++) {
-          this.daysArr.push({
-            date: j+1,
-            day: new Date(this.year,this.month,j+1).getDay(),
-            chooseable: j+1 >= this.today.getDate(),
-            month: this.month,
-          });
+          this.daysArr.push(new Date(this.year,this.month,j+1));
         };
         for (var k = this.daysArr.length; k < 42; k++) {
-          this.daysArr.push({
-            date: dayNextMo,
-            day: new Date(this.year,this.month+1,dayNextMo).getDay(),
-            chooseable: true,
-            month: this.month+1,
-          });
+          this.daysArr.push(new Date(this.year,this.month+1,dayNextMo));
           dayNextMo++;
         }
+      },
+      toggleSelector() {
+        this.showSelector = !this.showSelector
       }
     }
   }
@@ -105,7 +93,7 @@
   }
   input {
     text-indent: 0.75em;
-    height: 1.2em;
+    height: 1.5em;
     width: 14em;
     box-sizing: border-box;
     margin: 0 auto;
@@ -163,7 +151,7 @@
     }
     .calenderUnit-body {
       width: 100%;
-      color: #000;
+      color: #fff;
       .calenderUnit-body-dayUnit {
         height: 2.3em;
         width: 2.3em;
@@ -171,6 +159,13 @@
         float: left;
         text-align: center;
         background-color: #FFF;
+        cursor: default;
+      }
+      .thisMonth {
+        color: #000;
+      }
+      .nxtMonth {
+        color: #999;
       }
     }
   }

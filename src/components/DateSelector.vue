@@ -5,7 +5,7 @@
         <div class="calenderUnit">
           <div class="calenderUnit-header">
             <div class="leftArrow arrow"></div>
-            {{year + "年" + month + "月" }}
+            {{year + "年" + (month + 1) + "月"}}
             <div class="rigthArrow arrow"></div>
             <div class="calenderUnit-header-days">
               <div>日</div>
@@ -18,7 +18,11 @@
             </div>
           </div>
           <div class="calenderUnit-body">
-            
+            <div class="calenderUnit-body-dayUnit"
+                 v-for="day in daysArr"
+                 >
+                {{ day.date }}       
+            </div>
           </div>
         </div>
         <input type="text" class="suvery-date" value="">
@@ -31,8 +35,56 @@
   export default {
     data() {
       return {
-        year: (new Date()).getFullYear(),
-        month: (new Date()).getMonth() + 1,
+        today: "",
+        year: "",
+        month: "",
+        dayNum: "",
+        daysArr: [],
+        chooseDate: "",
+      }
+    },
+    ready() {
+      this.today = new Date();
+      this.year = this.today.getFullYear();
+      this.month = this.today.getMonth();
+      this.dayNum = new Date(this.year,this.month+1,0).getDate();
+      this.buildDaysArr();
+    },
+    methods: {
+      buildDaysArr() {
+        const firstday = new Date(this.year,this.month,1);
+        const day = firstday.getDay();
+        var dayNumLast = new Date(this.year,this.month,0).getDate();
+        var dayNextMo = 1;
+        if (day > 0) {
+          for (let i = 0; i < day; i++) {
+            this.daysArr.unshift({
+              date: dayNumLast,
+              day: new Date(this.year,this.month-1,dayNumLast).getDay(),
+              chooseable:false,
+              month: this.month-1,
+            });
+            dayNumLast--;
+          }
+          console.log(this.daysArr);
+        };
+        for (let j = 0; j < this.dayNum; j++) {
+          this.daysArr.push({
+            date: j+1,
+            day: new Date(this.year,this.month,j+1).getDay(),
+            chooseable: j+1 >= this.today.getDate(),
+            month: this.month,
+          });
+        };
+        for (var k = this.daysArr.length; k < 42; k++) {
+          this.daysArr.push({
+            date: dayNextMo,
+            day: new Date(this.year,this.month+1,dayNextMo).getDay(),
+            chooseable: true,
+            month: this.month+1,
+          });
+          dayNextMo++;
+        }
       }
     }
   }
@@ -107,6 +159,18 @@
           float: left;
           text-align: center;
         }
+      }
+    }
+    .calenderUnit-body {
+      width: 100%;
+      color: #000;
+      .calenderUnit-body-dayUnit {
+        height: 2.3em;
+        width: 2.3em;
+        line-height: 2.3em;
+        float: left;
+        text-align: center;
+        background-color: #FFF;
       }
     }
   }

@@ -52,7 +52,18 @@
 </template>
 
 <script>
+  import { setEndDate } from '../vuex/actions';
+  import { getActiveSuvery } from '../vuex/getters';
+
   export default {
+    vuex: {
+      actions: {
+        setEndDate,
+      },
+      getters: {
+        activeSuvery: getActiveSuvery,
+      }
+    },
     data() {
       return {
         today: new Date(),
@@ -64,6 +75,11 @@
       }
     },
     ready() {
+      if (this.activeSuvery.endDate) {
+        this.chooseDate = new Date(this.activeSuvery.endDate);
+      }
+      this.year = this.chooseDate.getFullYear();
+        this.month = this.chooseDate.getMonth();
       this.buildDaysArr(this.year, this.month);
     },
     methods: {
@@ -118,6 +134,7 @@
           this.monthPlus();
           this.chooseDate = day;
         }
+        this.setEndDate(day);
       },
     }
   }

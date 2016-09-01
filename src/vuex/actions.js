@@ -16,7 +16,7 @@ const initSuvery = {
   id: +new Date(),
   title: 'First Suvery',
   buildDate: (new Date()).getFullYear() + "-" + ((new Date()).getMonth() + 1) + "-" + (new Date()).getDate(),
-  endDate: '99999999999999999999',
+  endDate: '',
   state: 'unpublish',
   questions: [{
     title:"单选题",
@@ -61,3 +61,5 @@ export const deleteOption = makeAction('DELETE_OPTION');
 export const addOption = makeAction('ADD_OPTION');
 
 export const toggleMandatory = makeAction('TOGGLE_MANDATORY');
+
+export const setEndDate = makeAction('SET_END_DATE');

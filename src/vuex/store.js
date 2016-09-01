@@ -96,6 +96,9 @@ const mutations = {
     console.log(state.activeSuvery.questions[idx].mandatory);
     state.activeSuvery.questions[idx].mandatory = !state.activeSuvery.questions[idx].mandatory;
   },
+  SET_END_DATE(state, date) {
+    state.activeSuvery.endDate = date;
+  },
   DELETE_SUVERY(state) {
     for (var i = 0; i < state.suverys.length; i++) {
       if(state.suverys[i].id === state.activeSuvery.id){

@@ -36,7 +36,7 @@
           {{ suvery.title }}
         </td>
         <td>
-          {{ suvery.buildDate}}
+          {{  formatDate(suvery) }}
         </td>
         <td :class="{suveryPublishing: stateCheck(suvery) == '发布中'}">
           {{ stateCheck(suvery) }}
@@ -115,6 +115,13 @@
           return "已结束";
         }
       },
+      formatDate(suvery) {
+        if (suvery.endDate) {
+          return (suvery.endDate.getFullYear()+ "-" + (suvery.endDate.getMonth() + 1) + "-" + suvery.endDate.getDate())
+        }else{
+          return (suvery.buildDate.getFullYear()+ "-" + (suvery.buildDate.getMonth() + 1) + "-" + suvery.buildDate.getDate())
+        }
+      }
     }
   };
 </script>

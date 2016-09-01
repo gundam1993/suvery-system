@@ -40,7 +40,7 @@
     <date-selector></date-selector>
     <div id="suvery-control">
       <div class="button color-change" @click="saveEdit()">保存问卷</div>
-      <div class="button color-change">发布问卷</div>
+      <div class="button color-change" @click="publish()">发布问卷</div>
     </div>
   </div>
 </template>
@@ -49,7 +49,7 @@
   import QuestionBuild from './QuestionBuild';
   import DateSelector from './DateSelector';
   import { getActiveSuvery } from '../vuex/getters';
-  import { editSuvery, addQuestion } from '../vuex/actions';
+  import { editSuvery, addQuestion, publishSuvery } from '../vuex/actions';
 
   export default {
     vuex: {
@@ -59,6 +59,7 @@
       actions: {
         editSuvery,
         addQuestion,
+        publishSuvery,
       }
     },
     data() {
@@ -88,8 +89,12 @@
       },
       saveEdit() {
         this.editSuvery(this.suvery);
-        this.$route.router.go('/Home');
       },
+      publish() {
+        this.publishSuvery();
+        this.editSuvery(this.suvery);
+        this.$route.router.go('/Home');
+      }
     },
   };
 

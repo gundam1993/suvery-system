@@ -134,7 +134,8 @@
           this.monthPlus();
           this.chooseDate = day;
         }
-        this.setEndDate(day);
+        var endDate = new Date(day.getFullYear(),day.getMonth(),day.getDate(),23,59,59)
+        this.setEndDate(endDate);
       },
     }
   }

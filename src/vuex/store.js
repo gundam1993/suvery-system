@@ -24,7 +24,6 @@ const mutations = {
       state: 'unpublish',
       questions: [],
     };
-    //state.suverys.push(newSuvery);
     state.activeSuvery = newSuvery;
   },
   EDIT_SUVERY(state, suvery) {
@@ -98,6 +97,9 @@ const mutations = {
   },
   SET_END_DATE(state, date) {
     state.activeSuvery.endDate = date;
+  },
+  PUBLISH_SUVERY(state) {
+    state.activeSuvery.state = "publish";
   },
   DELETE_SUVERY(state) {
     for (var i = 0; i < state.suverys.length; i++) {

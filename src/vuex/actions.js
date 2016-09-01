@@ -15,7 +15,7 @@ export const editSuvery = makeAction('EDIT_SUVERY');
 const initSuvery = {
   id: +new Date(),
   title: 'First Suvery',
-  buildDate: (new Date()).getFullYear() + "-" + ((new Date()).getMonth() + 1) + "-" + (new Date()).getDate(),
+  buildDate: new Date(),
   endDate: '',
   state: 'unpublish',
   questions: [{
@@ -63,3 +63,5 @@ export const addOption = makeAction('ADD_OPTION');
 export const toggleMandatory = makeAction('TOGGLE_MANDATORY');
 
 export const setEndDate = makeAction('SET_END_DATE');
+
+export const publishSuvery = makeAction('PUBLISH_SUVERY');

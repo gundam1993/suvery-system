@@ -81,6 +81,8 @@
       this.year = this.chooseDate.getFullYear();
         this.month = this.chooseDate.getMonth();
       this.buildDaysArr(this.year, this.month);
+      const endDate = new Date(this.chooseDate.getFullYear(),this.chooseDate.getMonth(),this.chooseDate.getDate(),23,59,59)
+      this.setEndDate(endDate);
     },
     methods: {
       buildDaysArr(year, month) {

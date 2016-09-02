@@ -107,6 +107,11 @@ const mutations = {
         for (let option of question.options) {
           question.results[option] = 0;
         }
+        if (question.type === 'radio') {
+          question.results.choose = "";
+        }else{
+          question.results.choose = [];
+        }
       }
     }
     state.activeSuvery.state = "publish";

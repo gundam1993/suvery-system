@@ -12,11 +12,17 @@
               <div class="option"
                    v-for="option in question.options">
                 <label v-if="question.type === 'checkbox'">
-                  <input type="checkbox" name="{{suvery.questions.indexOf(question)}}">
+                  <input type="checkbox" 
+                         name="{{suvery.questions.indexOf(question)}}"
+                         value="{{ option }}"
+                         v-model="question.results.choose">
                   {{ option }}
                 </label>
                 <label v-if="question.type === 'radio'">
-                  <input type="radio" name="{{suvery.questions.indexOf(question)}}">
+                  <input type="radio" 
+                         name="{{suvery.questions.indexOf(question)}}"
+                         value="{{ option }}" 
+                         v-model="question.results.choose">
                   {{ option }}
                 </label>
               </div>
@@ -30,7 +36,7 @@
     <hr>
     <div class="suvery-commit">
       <div class="button color-change"
-           v-link="'/Home'">提交问卷</div>
+           @click="submit()">提交问卷</div>
     </div>
   </div>
 </template>
@@ -39,20 +45,23 @@
   import { getActiveSuvery } from '../vuex/getters'
 
   export default {
-      vuex: {
-        getters: {
-          suvery:getActiveSuvery,
-        },
+    vuex: {
+      getters: {
+        suvery:getActiveSuvery,
       },
-      methods: {
-        mandatory(question) {
-          if (question.mandatory) {
-            return "必答";
-          }else{
-            return "选答";
-          }
-        }, 
-      }
+    },
+    methods: {
+      mandatory(question) {
+        if (question.mandatory) {
+          return "必答";
+        }else{
+          return "选答";
+        }
+      }, 
+      submit() {
+        this.$route.router.go('/Home');
+      },
+    }
   }
 </script>
 

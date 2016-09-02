@@ -29,26 +29,31 @@
           </div>
           <div class="suvery-questions-textarea-fill"
                v-if="question.type === 'textarea'">
-            <textarea></textarea>
+            <textarea v-model="question.content"></textarea>
             <span>此题为{{ mandatory(question) }}</span>
           </div>
       </div>
     <hr>
     <div class="suvery-commit">
       <div class="button color-change"
-           @click="submit()">提交问卷</div>
+           @click="submit(suvery)">提交问卷</div>
     </div>
   </div>
 </template>
 
 <script>
-  import { getActiveSuvery } from '../vuex/getters'
+  import { getActiveSuvery } from '../vuex/getters';
+  import { submitSuvery, editSuvery } from '../vuex/actions';
 
   export default {
     vuex: {
       getters: {
         suvery:getActiveSuvery,
       },
+      actions: {
+        submitSuvery,
+        editSuvery,
+      }
     },
     methods: {
       mandatory(question) {
@@ -58,7 +63,9 @@
           return "选答";
         }
       }, 
-      submit() {
+      submit(suvery) {
+        this.submitSuvery();
+        this.editSuvery(suvery)
         this.$route.router.go('/Home');
       },
     }

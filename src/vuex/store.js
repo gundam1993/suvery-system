@@ -60,6 +60,7 @@ const mutations = {
           mandatory: false,
           allResults: 0,
           effectiveResults: 0,
+          content: "",
         });
         break;
     }
@@ -123,6 +124,25 @@ const mutations = {
         break;
       }
     };
+  },
+  SUBMIT_SUVERY(state) {
+    for (let question of state.activeSuvery.questions) {
+      if (question.type === "radio") {
+        question.results[question.results.choose] ++;
+        question.results.choose = "";
+      }else if (question.type === "checkbox") {
+        question.results.choose.forEach(function (v) {
+          question.results[v] ++;
+        });
+        question.results.choose = [];
+      }else {
+        question.allResults ++;
+        if (question.content) {
+          question.effectiveResults ++;
+          question.content = "";
+        }
+      }
+    }
   },
   SET_ACTIVE_SUVERY(state, suverys) {
     state.activeSuvery = JSON.parse(JSON.stringify(suverys));

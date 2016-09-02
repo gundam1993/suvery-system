@@ -32,6 +32,7 @@ const initSuvery = {
     mandatory: false,
     allResults: 0,
     effectiveResults: 0,
+    content: "",
   }],
 };
 
@@ -67,3 +68,5 @@ export const toggleMandatory = makeAction('TOGGLE_MANDATORY');
 export const setEndDate = makeAction('SET_END_DATE');
 
 export const publishSuvery = makeAction('PUBLISH_SUVERY');
+
+export const submitSuvery = makeAction('SUBMIT_SUVERY');

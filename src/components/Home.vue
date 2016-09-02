@@ -47,11 +47,11 @@
                @click="edit(suvery)"
                >编辑</div>
           <div class="button color-change" 
-               v-show="suvery.state !== 'publish' || suvery.endDate < new Date()" 
+               v-show="suvery.state !== 'publish' || new Date(suvery.endDate) < new Date()" 
                @click="deleteSelected(suvery)"
                >删除</div>
           <div class="button color-change"
-               v-show="suvery.state !== 'unpublish' && suvery.endDate > new Date()"
+               v-show="suvery.state !== 'unpublish' && new Date(suvery.endDate) > new Date()"
                @click="fill(suvery)"
                >填写问卷</div>
           <div class="button color-change"
@@ -109,18 +109,16 @@
       stateCheck(suvery) {
         if (suvery.state === 'unpublish') {
           return "未发布";
-        }else if (suvery.endDate > new Date()) {
+        }else if (new Date(suvery.endDate) > new Date()) {
           return "发布中";
         }else {
           return "已结束";
         }
       },
       formatDate(suvery) {
-        if (suvery.endDate) {
-          return (suvery.endDate.getFullYear()+ "-" + (suvery.endDate.getMonth() + 1) + "-" + suvery.endDate.getDate())
-        }else{
-          return (suvery.buildDate.getFullYear()+ "-" + (suvery.buildDate.getMonth() + 1) + "-" + suvery.buildDate.getDate())
-        }
+        var date;
+        suvery.endDate ? date = new Date(suvery.endDate) :  date = new Date(suvery.buildDate)
+        return (date.getFullYear()+ "-" + (date.getMonth() + 1) + "-" + date.getDate())
       }
     }
   };

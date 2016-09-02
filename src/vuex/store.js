@@ -58,6 +58,8 @@ const mutations = {
           title:"文本题",
           type:"textarea",
           mandatory: false,
+          allResults: 0,
+          effectiveResults: 0,
         });
         break;
     }
@@ -99,6 +101,14 @@ const mutations = {
     state.activeSuvery.endDate = date;
   },
   PUBLISH_SUVERY(state) {
+    for(let question of state.activeSuvery.questions) {
+      if (question.type !== "textarea") {
+        question.results = {}
+        for (let option of question.options) {
+          question.results[option] = 0;
+        }
+      }
+    }
     state.activeSuvery.state = "publish";
   },
   DELETE_SUVERY(state) {

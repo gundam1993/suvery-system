@@ -30,6 +30,8 @@ const initSuvery = {
     title:"文本题",
     type:"textarea",
     mandatory: false,
+    allResults: 0,
+    effectiveResults: 0,
   }],
 };
 

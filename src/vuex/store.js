@@ -12,8 +12,16 @@ const state = {
 const mutations = {
   //  初始化STORE
   INIT_STORE(state, data) {
-    state.suverys = data.suverys;
-    state.activeSuvery = data.activeSuvery;
+    if (window.localStorage.suverySystem) {
+      const localdata = JSON.parse(window.localStorage.suverySystem);
+      state.suverys = localdata.suverys;
+      state.activeSuvery = localdata.activeSuvery;
+    }else{
+      const newdata = JSON.stringify(data);
+      window.localStorage.suverySystem = newdata;
+      state.suverys = data.suverys;
+      state.activeSuvery = data.activeSuvery;
+    }
   },
   NEW_SUVERY(state) {
     var newSuvery = {
@@ -32,10 +40,12 @@ const mutations = {
     for (var i = 0; i < state.suverys.length; i++) {
       if(state.suverys[i].id === suvery.id){
         state.suverys[i] = suvery;
+        window.localStorage.suverySystem = JSON.stringify(state);
         return;
       }
     };
     state.suverys.push(state.activeSuvery);
+    window.localStorage.suverySystem = JSON.stringify(state);
   },
   ADD_QUESTION(state, type) {
     switch (type) {
@@ -67,6 +77,7 @@ const mutations = {
   },
   DELETE_QUESTION(state, question) {
     state.activeSuvery.questions.$remove(question);
+    window.localStorage.suverySystem = JSON.stringify(state);
   },
   COPY_QUESTION(state, question) {
     const newQustion = JSON.parse(JSON.stringify(question));
@@ -104,14 +115,14 @@ const mutations = {
   PUBLISH_SUVERY(state) {
     for(let question of state.activeSuvery.questions) {
       if (question.type !== "textarea") {
-        question.results = {}
+        question.results = {};
         for (let option of question.options) {
           question.results[option] = 0;
         }
         if (question.type === 'radio') {
-          question.results.choose = "";
+          question.choose = "";
         }else{
-          question.results.choose = [];
+          question.choose = [];
         }
       }
     }
@@ -128,13 +139,13 @@ const mutations = {
   SUBMIT_SUVERY(state) {
     for (let question of state.activeSuvery.questions) {
       if (question.type === "radio") {
-        question.results[question.results.choose] ++;
-        question.results.choose = "";
+        question.results[question.choose] ++;
+        question.choose = "";
       }else if (question.type === "checkbox") {
-        question.results.choose.forEach(function (v) {
+        question.choose.forEach(function (v) {
           question.results[v] ++;
         });
-        question.results.choose = [];
+        question.choose = [];
       }else {
         question.allResults ++;
         if (question.content) {

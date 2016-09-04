@@ -73,11 +73,6 @@
           return this.activeSuvery;
         },
       },
-      abc: {
-        get() {
-          return this.activeSuvery.questions.slice();
-        },
-      }
     },
     components: {
       QuestionBuild,

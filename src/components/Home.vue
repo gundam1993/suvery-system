@@ -55,7 +55,9 @@
                @click="fill(suvery)"
                >填写问卷</div>
           <div class="button color-change"
-               v-show="suvery.state !== 'unpublish'">查看数据</div>
+               v-show="suvery.state !== 'unpublish'"
+               @click="showResult(suvery)"
+               >查看数据</div>
         </td>
       </tr>
     </tbody>
@@ -105,6 +107,10 @@
       fill(suvery) {
         this.setActiveSuvery(suvery);
         this.$route.router.go('/Fill/'+ suvery.id);
+      },
+      showResult(suvery) {
+        this.setActiveSuvery(suvery);
+        this.$route.router.go('/Result/'+ suvery.id);
       },
       stateCheck(suvery) {
         if (suvery.state === 'unpublish') {

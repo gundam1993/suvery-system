@@ -3,6 +3,7 @@ import App from './App';
 import Home from './components/Home.vue';
 import SuvreyBuild from './components/SuvreyBuild.vue';
 import SuvreyDisplay from './components/SuvreyDisplay.vue';
+import ResultDisplay from './components/ResultDisplay.vue';
 
 import VueRouter from 'vue-router';
 
@@ -22,7 +23,10 @@ router.map({
   },
   '/Fill/:suveryId': {
     component: SuvreyDisplay,
-  }
+  },
+  '/Result/:suveryId': {
+    component: ResultDisplay,
+  },
 });
 
 router.redirect({

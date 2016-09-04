@@ -15,14 +15,14 @@
                   <input type="checkbox" 
                          name="{{suvery.questions.indexOf(question)}}"
                          value="{{ option }}"
-                         v-model="question.results.choose">
+                         v-model="question.choose">
                   {{ option }}
                 </label>
                 <label v-if="question.type === 'radio'">
                   <input type="radio" 
                          name="{{suvery.questions.indexOf(question)}}"
                          value="{{ option }}" 
-                         v-model="question.results.choose">
+                         v-model="question.choose">
                   {{ option }}
                 </label>
               </div>

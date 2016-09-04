@@ -39,7 +39,6 @@ const initSuvery = {
 const initData = {
   suverys: [initSuvery],
   activeSuvery: initSuvery,
-  editingSuvery: {},
   modalState: false,
 };
 

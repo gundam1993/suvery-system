@@ -15,7 +15,7 @@
                    v-if="question.type === 'checkbox'"></i>
                 <i class="iconfont icon-radiobuttonunchecked"
                    v-if="question.type === 'radio'"></i>
-                <input type="text" class="user-input" :value="option">
+                <input type="text" class="user-input" v-model="option">
                 <i class="iconfont icon-clear"
                    @click="this.deleteOption(question, option)"></i>
               </div>

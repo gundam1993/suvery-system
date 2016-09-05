@@ -54,6 +54,7 @@ const mutations = {
           title:"单选题",
           type:"radio",
           options: ["选项1","选项2"],
+          choose: "",
         });
         break;
       case "checkbox" :
@@ -61,6 +62,7 @@ const mutations = {
           title:"多选题",
           type:"checkbox",
           options: ["选项1","选项2","选项3","选项4"],
+          choose: [],
         });
         break;
       case "textarea" :
@@ -68,8 +70,6 @@ const mutations = {
           title:"文本题",
           type:"textarea",
           mandatory: false,
-          allResults: 0,
-          effectiveResults: 0,
           content: "",
         });
         break;
@@ -114,8 +114,8 @@ const mutations = {
   },
   PUBLISH_SUVERY(state) {
     for(let question of state.activeSuvery.questions) {
+      question.results = {};
       if (question.type !== "textarea") {
-        question.results = {};
         for (let option of question.options) {
           question.results[option] = 0;
         }
@@ -124,7 +124,10 @@ const mutations = {
         }else{
           question.choose = [];
         }
+      }else{
+        question.results.effectiveResults = 0;
       }
+      question.resultsNum = 0;
     }
     state.activeSuvery.state = "publish";
   },
@@ -147,12 +150,13 @@ const mutations = {
         });
         question.choose = [];
       }else {
-        question.allResults ++;
+        question.results.allResults ++;
         if (question.content) {
-          question.effectiveResults ++;
+          question.results.effectiveResults ++;
           question.content = "";
         }
       }
+      question.resultsNum ++;
     }
   },
   SET_ACTIVE_SUVERY(state, suverys) {

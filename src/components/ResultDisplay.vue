@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h1>{{ suvery.title }}</h1>
+    <h5>此统计分析只包含已经完整回收的数据</h5>
     <hr>
       <div class="suvery-results"
            v-for=" question in suvery.questions">
@@ -9,10 +10,18 @@
           </div>
           <div class="suvery-results-charts"
                v-if="question.type === 'radio'">
-            <bar-charts :results="question.results"></bar-charts>
+            <bar-charts :results="question.results"
+                    :results-num="question.resultsNum"></bar-charts>
+          </div>
+          <div class="suvery-results-charts"
+               v-if="question.type === 'checkbox'">
+               <pie-charts :results="question.results"
+                    :results-num="question.resultsNum"></pie-charts>
           </div>
           <div class="suvery-results-charts"
                v-if="question.type === 'textarea'">
+               <bar-charts :results="question.results"
+                       :results-num="question.resultsNum"></bar-charts>
           </div>
       </div>
     <hr>
@@ -24,7 +33,8 @@
 </template>
 
 <script>
-  import BarCharts from './BarCharts'
+  import BarCharts from './BarCharts';
+  import PieCharts from "./PieCharts";
   import { getActiveSuvery } from '../vuex/getters';
 
   export default {
@@ -35,12 +45,13 @@
     },
     components: {
       BarCharts,
+      PieCharts,
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  h1 {
+  h1,h5 {
     text-align: center;
   }
   .suvery-commit {

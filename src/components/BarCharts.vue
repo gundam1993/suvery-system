@@ -40,7 +40,7 @@
                     },
                     data: []
                   }],
-                  color: ['#3398DB',],
+                  
                 };
               },
       },
@@ -56,12 +56,12 @@
         if (!this.results.effectiveResults) {
             this.option.yAxis.data = Object.keys(this.results).reverse();
             for (let data in this.results) {
-              this.option.series[0].data.push(this.results[data] / this.resultsNum * 100);
+              this.option.series[0].data.push((this.results[data] / this.resultsNum * 100).toFixed(2));
             }
             this.option.series[0].data.reverse();
         }else{
           this.option.yAxis.data = ["有效回答占比"];
-          this.option.series[0].data = [this.results.effectiveResults / this.resultsNum * 100 ];
+          this.option.series[0].data = [(this.results.effectiveResults / this.resultsNum * 100).toFixed(2) ];
         }
       },
     }

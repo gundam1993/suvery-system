@@ -72,9 +72,6 @@
     padding: 1em 1.5em; 
     box-sizing: border-box;
     margin: 1em auto;
-
-    &:hover {
-      background-color: #c0e3ea;
-    }
+    border: 1px solid #aaa;
   }
 </style>

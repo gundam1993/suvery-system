@@ -42,24 +42,30 @@
       <div class="button color-change" @click="saveEdit()">保存问卷</div>
       <div class="button color-change" @click="publish()">发布问卷</div>
     </div>
+    <modal v-if="getModalState" type='alert'>
+      <p>问卷已保存</p>
+    </modal>
   </div>
 </template>
 
 <script>
   import QuestionBuild from './QuestionBuild';
   import DateSelector from './DateSelector';
-  import { getActiveSuvery } from '../vuex/getters';
-  import { editSuvery, addQuestion, publishSuvery } from '../vuex/actions';
+  import Modal from './modal';
+  import { getActiveSuvery, getModalState } from '../vuex/getters';
+  import { editSuvery, addQuestion, publishSuvery, toggleModal } from '../vuex/actions';
 
   export default {
     vuex: {
       getters: {
         activeSuvery: getActiveSuvery,
+        getModalState,
       },
       actions: {
         editSuvery,
         addQuestion,
         publishSuvery,
+        toggleModal,
       }
     },
     data() {
@@ -77,6 +83,7 @@
     components: {
       QuestionBuild,
       DateSelector,
+      Modal,
     },
     methods: {
       toggleSelector() {
@@ -84,11 +91,15 @@
       },
       saveEdit() {
         this.editSuvery(this.suvery);
+        this.toggleModal();
       },
       publish() {
         this.publishSuvery();
         this.editSuvery(this.suvery);
         this.$route.router.go('/Home');
+      },
+      la() {
+        console.log("123")
       }
     },
   };

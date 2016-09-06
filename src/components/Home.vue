@@ -143,30 +143,6 @@
   border-radius: 5px;
   box-shadow: 2px 2px 5px #888;
 }
-#loading
-{
-  text-align: center;
-  padding: 10px;  
-}
-
-#loading:hover
-{
-  background-color: #FFF;
-}
-
-#loading>div
-{
-  animation-iteration-count:infinite;
-  animation-name: loading;
-  animation-duration:2s;
-  animation-timing-function:ease-in-out;
-  margin: 50px;
-}
-
-@keyframes loading {
-  from {transform:rotate(0deg);}
-  to {transform:rotate(360deg);}
-} 
 
 table
 {

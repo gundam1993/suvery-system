@@ -5,3 +5,7 @@ export const getActiveSuvery = (state) => {
 export const getSuverys = (state) => {
   return state.suverys;
 };
+
+export const getModalState = (state) => {
+  return state.modalState;
+};

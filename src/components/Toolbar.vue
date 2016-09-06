@@ -1,25 +1,25 @@
 <template>
-<div id="toolbar">
-   <nav>
-        <a href="">
-            <i class="iconfont icon-wenhao"></i>
-            <span>问卷管理</span>
-        </a>
-        <div>
-            <ul>
-                <li
-                  id="my-Survey"
-                  class="color-change"
-                  v-link="'/Home'"
-                >我的问卷</li>
-            </ul>
-        </div>
+  <div id="toolbar">
+    <nav>
+      <a href="">
+          <i class="iconfont icon-wenhao"></i>
+          <span>问卷管理</span>
+      </a>
+      <div>
+        <ul>
+          <li
+            id="my-Survey"
+            class="color-change"
+            v-link="'/Home'"
+            >我的问卷</li>
+        </ul>
+      </div>
     </nav>
-</div>
+  </div>
+
 </template>
 
 <script>
-  
 </script>
 
 <style>

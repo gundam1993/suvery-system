@@ -138,6 +138,7 @@ const mutations = {
         break;
       }
     };
+    window.localStorage.suverySystem = JSON.stringify(state);
   },
   SUBMIT_SUVERY(state) {
     for (let question of state.activeSuvery.questions) {

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>{{ suvery.title }}</h1>
-    <h5>此统计分析只包含已经完整回收的数据</h5>
+    <p>此统计分析只包含已经完整回收的数据</p>
     <hr>
       <div class="suvery-results"
            v-for=" question in suvery.questions">
@@ -51,7 +51,7 @@
 </script>
 
 <style lang="scss" scoped>
-  h1,h5 {
+  h1,p {
     text-align: center;
   }
   .suvery-commit {

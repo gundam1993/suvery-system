@@ -5,7 +5,10 @@
 </template>
 
 <script>
-  import echarts from 'echarts';
+  var echarts = require('echarts/lib/echarts');
+  require('echarts/lib/chart/pie');
+  require('echarts/lib/component/tooltip');
+  require('echarts/lib/component/title');
 
   export default {
     props: ["results","results-num"],

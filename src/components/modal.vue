@@ -1,7 +1,7 @@
 <template>
     <div class="modal-mask"  transition="modal">
       <div class="modal-body">
-        <slot></slot>
+        <p>{{ content }}</p>
           <div class="modal-btns"
                v-show="this.type === 'modal'">
             <button class="btn btn-yes" @click="confirm()">确定</button>
@@ -29,12 +29,13 @@
         type: String,
         default: '',
       },
+      content: {
+        type: String,
+        default: '',
+      },
       onConfirm: {
         type: Function
       },
-    },
-    ready() {
-      console.log(this.onConfirm);
     },
     methods: {
       confirm() {
@@ -70,16 +71,16 @@
     .modal-body
     {
       font-size: 20px;
-      width: 30em;
+      min-width: 20em;
       box-sizing: border-box;
       padding: 1.5em 2em;
       background-color: #FFF;
       border-radius: 3px;
       text-align: center;
 
-      .modal-btns
-      {
-        text-align: right;
+      p {
+        display: block;
+        margin: 1.5em auto;
       }
 
       .alert-btm

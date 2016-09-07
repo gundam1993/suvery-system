@@ -73,23 +73,36 @@
       </tr>
     </tfoot>
   </table>
+  <modal v-if="getModalState" type="modal" content="确认删除此问卷？" @confirm="modalFunction">
+    </modal>
   </div>
 </template>
 
 <script>
-  import { getSuverys } from '../vuex/getters';
-  import { newSuvery, deleteSuvery, setActiveSuvery } from '../vuex/actions';
+  import Modal from "./modal";
+  import { getSuverys, getModalState } from '../vuex/getters';
+  import { newSuvery, deleteSuvery, setActiveSuvery, toggleModal } from '../vuex/actions';
 
   export default {
     vuex: {
       getters: {
         getSuverys,
+        getModalState,
       },
       actions: {
         newSuvery,
         deleteSuvery,
         setActiveSuvery,
+        toggleModal,
       }
+    },
+    data() {
+      return {
+        modalFunction: "",
+      }
+    },
+    components: {
+      Modal,
     },
     methods: {
       addNew() {
@@ -98,7 +111,10 @@
       },
       deleteSelected(suvery) {
         this.setActiveSuvery(suvery);
-        this.deleteSuvery();
+        this.modalFunction = function () {
+          this.deleteSuvery();
+        }
+        this.toggleModal();
       },
       edit(suvery) {
         this.setActiveSuvery(suvery);

@@ -42,8 +42,7 @@
       <div class="button color-change" @click="saveEdit()">保存问卷</div>
       <div class="button color-change" @click="publish()">发布问卷</div>
     </div>
-    <modal v-if="getModalState" type='alert'>
-      <p>问卷已保存</p>
+    <modal v-if="getModalState" :type="modalType" :content="modalContent" @confirm="modalFunction">
     </modal>
   </div>
 </template>
@@ -71,6 +70,9 @@
     data() {
       return {
         showSelector: false,
+        modalType: "",
+        modalContent: "",
+        modalFunction: "",
       }
     },
     computed: {
@@ -90,17 +92,25 @@
         this.showSelector = !this.showSelector;
       },
       saveEdit() {
+        if (!this.activeSuvery.title) {
+          this.activeSuvery.title="这里是标题";
+        }
         this.editSuvery(this.suvery);
+        this.modalType = "alert";
+        this.modalContent = "问卷已保存";
+        this.modalFunction = "";
         this.toggleModal();
       },
       publish() {
-        this.publishSuvery();
-        this.editSuvery(this.suvery);
-        this.$route.router.go('/Home');
+        this.modalType = "modal"
+        this.modalContent = "是否发布问卷？ \n（本问卷截止日期为" + (new Date(this.activeSuvery.endDate).getFullYear()+ "-" + (new Date(this.activeSuvery.endDate).getMonth() + 1) + "-" + new Date(this.activeSuvery.endDate).getDate()) + "）";
+        this.modalFunction = function () {
+          this.publishSuvery();
+          this.editSuvery(this.suvery);
+          this.$route.router.go('/Home');
+        } 
+        this.toggleModal();
       },
-      la() {
-        console.log("123")
-      }
     },
   };
 

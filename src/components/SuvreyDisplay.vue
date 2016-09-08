@@ -38,21 +38,36 @@
       <div class="button color-change"
            @click="submit(suvery)">提交问卷</div>
     </div>
+    <modal v-if="getModalState" :type="modalType" :content="modalContent" @confirm="modalFunction">
+    </modal>
   </div>
 </template>
 
 <script>
-  import { getActiveSuvery } from '../vuex/getters';
-  import { submitSuvery, editSuvery } from '../vuex/actions';
+  import Modal from "./modal"
+  import { getActiveSuvery, getModalState } from '../vuex/getters';
+  import { submitSuvery, editSuvery, toggleModal } from '../vuex/actions';
 
   export default {
     vuex: {
       getters: {
         suvery:getActiveSuvery,
+        getModalState
       },
       actions: {
         submitSuvery,
         editSuvery,
+        toggleModal,
+      }
+    },
+    components: {
+      Modal,
+    },
+    data() {
+      return {
+        modalType: "",
+        modalContent: "",
+        modalFunction: "",
       }
     },
     methods: {
@@ -62,11 +77,41 @@
         }else{
           return "选答";
         }
-      }, 
+      },
+      resultCheck() {
+        var result = false;
+        for (let question of this.suvery.questions) {
+          if (question.type === "radio" && question.choose === "") {
+            result = true;
+            break;
+          }else if(question.type === "checkbox" && question.choose.length === 0) {
+            result = true;
+            break;
+          }else if (question.type === "textarea" && question.mandatory && question.content === "") {
+            result = true;
+            break;
+          }
+        }
+        return result;
+      },
       submit(suvery) {
-        this.submitSuvery();
-        this.editSuvery(suvery)
-        this.$route.router.go('/Home');
+        console.log(this.resultCheck())
+        if (this.resultCheck()) {
+          this.modalType = "alert";
+          this.modalContent = "请完整填写问卷。";
+          this.modalFunction = function () {
+            return
+          }
+        }else{
+          this.modalType = "modal";
+          this.modalContent = "确认要提交问卷吗？";
+          this.modalFunction = function () {
+            this.submitSuvery();
+            this.editSuvery(suvery)
+            this.$route.router.go('/Home');
+          }
+        }
+        this.toggleModal();
       },
     }
   }

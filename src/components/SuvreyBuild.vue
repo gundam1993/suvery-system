@@ -75,13 +75,6 @@
         modalFunction: "",
       }
     },
-    computed: {
-      suvery: {
-        get() {
-          return this.activeSuvery;
-        },
-      },
-    },
     components: {
       QuestionBuild,
       DateSelector,
@@ -95,7 +88,7 @@
         if (!this.activeSuvery.title) {
           this.activeSuvery.title="这里是标题";
         }
-        this.editSuvery(this.suvery);
+        this.editSuvery(this.activeSuvery);
         this.modalType = "alert";
         this.modalContent = "问卷已保存";
         this.modalFunction = function () {
@@ -103,19 +96,35 @@
         };
         this.toggleModal();
       },
+      suveryCheck() {
+        var result = false;
+        if (this.activeSuvery.questions.length === 0) {
+          result = true;
+        }
+        for (let question of this.activeSuvery.questions) {
+          if (question.type !== "textarea" && question.options.length < 2) {
+            result = true;
+            break;
+          }
+        }
+        return result;
+      },
       publish() {
-        if (this.suvery.questions.length === 0) {
+        if (this.suveryCheck()) {
           this.modalType = "alert";
           this.modalContent = "请合理设置问卷内容。";
           this.modalFunction = function () {
-            return
+            return;
           };
         }else{
+          if (!this.activeSuvery.title) {
+            this.activeSuvery.title="这里是标题";
+          }
           this.modalType = "modal"
-          this.modalContent = "是否发布问卷？ \n（本问卷截止日期为" + (new Date(this.activeSuvery.endDate).getFullYear()+ "-" + (new Date(this.activeSuvery.endDate).getMonth() + 1) + "-" + new Date(this.activeSuvery.endDate).getDate()) + "）";
+          this.modalContent = "是否发布问卷？ <br/>（本问卷截止日期为" + (new Date(this.activeSuvery.endDate).getFullYear()+ "-" + (new Date(this.activeSuvery.endDate).getMonth() + 1) + "-" + new Date(this.activeSuvery.endDate).getDate()) + "）";
           this.modalFunction = function () {
             this.publishSuvery();
-            this.editSuvery(this.suvery);
+            this.editSuvery(this.activeSuvery);
             this.$route.router.go('/Home');
           }
         } 

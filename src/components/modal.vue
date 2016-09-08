@@ -1,7 +1,7 @@
 <template>
     <div class="modal-mask"  transition="modal">
       <div class="modal-body">
-        <p>{{ content }}</p>
+        <p>{{{ content }}}</p>
           <div class="modal-btns"
                v-show="this.type === 'modal'">
             <button class="btn btn-yes" @click="confirm()">确定</button>
@@ -123,16 +123,12 @@
   }
   .modal-transition
   {
-    transition: all .3s ease;
+    transition: all .2s ease;
   }
 
   .modal-enter .modal-confirm, .modal-leave .modal-confirm 
   {
     transform: scale(1);
-  }
-  .modal-transition
-  {
-    transition: all .3s ease;
   }
 </style>
 

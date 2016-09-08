@@ -151,7 +151,6 @@ const mutations = {
         });
         question.choose = [];
       }else {
-        question.results.allResults ++;
         if (question.content) {
           question.results.effectiveResults ++;
           question.content = "";

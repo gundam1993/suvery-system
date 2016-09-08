@@ -56,7 +56,7 @@
     },
     methods: {
       buildCharts() {
-        if (!this.results.effectiveResults) {
+        if (Object.keys(this.results).length > 1) {
             this.option.yAxis.data = Object.keys(this.results).reverse();
             for (let data in this.results) {
               this.option.series[0].data.push((this.results[data] / this.resultsNum * 100).toFixed(2));

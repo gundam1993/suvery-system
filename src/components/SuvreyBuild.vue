@@ -98,16 +98,26 @@
         this.editSuvery(this.suvery);
         this.modalType = "alert";
         this.modalContent = "问卷已保存";
-        this.modalFunction = "";
+        this.modalFunction = function () {
+          return
+        };
         this.toggleModal();
       },
       publish() {
-        this.modalType = "modal"
-        this.modalContent = "是否发布问卷？ \n（本问卷截止日期为" + (new Date(this.activeSuvery.endDate).getFullYear()+ "-" + (new Date(this.activeSuvery.endDate).getMonth() + 1) + "-" + new Date(this.activeSuvery.endDate).getDate()) + "）";
-        this.modalFunction = function () {
-          this.publishSuvery();
-          this.editSuvery(this.suvery);
-          this.$route.router.go('/Home');
+        if (this.suvery.questions.length === 0) {
+          this.modalType = "alert";
+          this.modalContent = "请合理设置问卷内容。";
+          this.modalFunction = function () {
+            return
+          };
+        }else{
+          this.modalType = "modal"
+          this.modalContent = "是否发布问卷？ \n（本问卷截止日期为" + (new Date(this.activeSuvery.endDate).getFullYear()+ "-" + (new Date(this.activeSuvery.endDate).getMonth() + 1) + "-" + new Date(this.activeSuvery.endDate).getDate()) + "）";
+          this.modalFunction = function () {
+            this.publishSuvery();
+            this.editSuvery(this.suvery);
+            this.$route.router.go('/Home');
+          }
         } 
         this.toggleModal();
       },

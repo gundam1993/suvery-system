@@ -33,7 +33,7 @@
   .container { 
     width: 80%;
     margin: 120px auto 40px auto;
-    padding: 10px 30px;
+    padding: 10px 30px 30px 30px;
     background-color: #FFF;
     box-sizing: border-box;
     border-radius: 5px;

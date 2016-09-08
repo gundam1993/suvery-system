@@ -30,7 +30,7 @@
       </tr>
       <tr v-for="suvery in getSuverys">
         <td>
-          <input class="homepage-checkbox" type="checkbox" name="survey-choose">
+          
         </td>
         <td>
           {{ suvery.title }}
@@ -61,17 +61,6 @@
         </td>
       </tr>
     </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="5">
-          <label><input class="homepage-checkbox" type="checkbox" name="survey-choose">&nbsp;全选</label>
-          <div id="delete-Survey" class="button color-change">删除</div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="5"></td>
-      </tr>
-    </tfoot>
   </table>
   <modal v-if="getModalState" type="modal" content="确认删除此问卷？" @confirm="modalFunction">
     </modal>
@@ -148,17 +137,7 @@
 
 <style>
 
-#main-block
-{ 
-  width: 80%;
-  margin: auto;
-  margin-top: 120px;
-  padding: 0 30px;
-  background-color: #FFF;
-  box-sizing: border-box;
-  border-radius: 5px;
-  box-shadow: 2px 2px 5px #888;
-}
+
 
 table
 {
